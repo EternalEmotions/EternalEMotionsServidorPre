@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+    environment:
+      SA_USERNAME: "saa"
+      SA_PASSWORD: "yourStrong(!)Password"
+      ACCEPT_EULA: "Y"
+      
+      
+    ports:
+      - '2323:1433'
+    volumes:
+      - data:/var/lib/mssql
+  api:
+    build: .
+    ports:
+      - '1994:80'
+    depends_on:
+      - db
+
+ 
+
+volumes:
+  data:
